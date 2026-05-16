@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis 15 - Meily</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Playfair Display', serif;
+    color: #7a0000;
+}
+
+/* Fondo */
+.hero {
+    min-height: 100vh;
+    background: url('bg.png') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Overlay */
+.overlay {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(4px);
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+/* animación por líneas */
+.fade-item {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards;
+}
+
+/* delays progresivos */
+.fade-item:nth-child(1){ animation-delay: 0.2s;}
+.fade-item:nth-child(2){ animation-delay: 0.4s;}
+.fade-item:nth-child(3){ animation-delay: 0.6s;}
+.fade-item:nth-child(4){ animation-delay: 0.8s;}
+.fade-item:nth-child(5){ animation-delay: 1s;}
+.fade-item:nth-child(6){ animation-delay: 1.2s;}
+.fade-item:nth-child(7){ animation-delay: 1.4s;}
+.fade-item:nth-child(8){ animation-delay: 1.6s;}
+.fade-item:nth-child(9){ animation-delay: 1.8s;}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tipografía */
+.small {
+    font-size: 18px;
+}
+
+.title {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: bold;
+}
+
+.name {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(48px, 8vw, 80px);
+    margin: 10px 0;
+}
+
+.text {
+    margin: 20px 0;
+    font-size: clamp(14px, 2.5vw, 18px);
+}
+
+.date {
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.time {
+    font-size: 20px;
+}
+
+.location {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+/* countdown */
+#countdown-label {
+    margin-top: 20px;
+    font-size: 16px;
+    font-style: italic;
+}
+
+#countdown {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Botón */
+button {
+    margin-top: 25px;
+    padding: 12px 25px;
+    border: none;
+    background: #a80000;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #7a0000;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .overlay {
+        padding: 25px 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+    <div class="overlay">
+
+        <div class="small fade-item">Mis</div>
+        <div class="title fade-item">15 Años</div>
+        <div class="name fade-item">Meily</div>
+
+        <div class="text fade-item">
+            Te invito a celebrar conmigo este día tan especial<br>
+            <b>¡No faltes!</b>
+        </div>
+
+        <div class="date fade-item">23 DE MAYO</div>
+        <div class="time fade-item">10:30 am</div>
+
+        <div class="location fade-item">
+           &#128205 Jr. Jorge Chávez #510 - Juliaca
+        </div>
+
+        <div id="countdown-label" class="fade-item">
+            El gran día está cada vez más cerca
+        </div>
+
+        <div id="countdown" class="fade-item"></div>
+
+        <button onclick="toggleMusic()" id="musicBtn" class="fade-item">
+            Activar música
+        </button>
+
+    </div>
+</section>
+
+<audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* MÚSICA TOGGLE */
+let isPlaying = false;
+const music = document.getElementById("music");
+const btn = document.getElementById("musicBtn");
+
+function toggleMusic() {
+    if (isPlaying) {
+        music.pause();
+        btn.innerText = "Activar música";
+    } else {
+        music.play();
+        btn.innerText = "Pausar música";
+    }
+    isPlaying = !isPlaying;
+}
+
+/* COUNTDOWN */
+const eventDate = new Date("May 23, 2026 10:30:00").getTime();
+
+const countdown = setInterval(() => {
+    const now = new Date().getTime();
+    const diff = eventDate - now;
+
+    if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "¡Hoy es el gran día!";
+        clearInterval(countdown);
+        return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").innerHTML =
+        days + " días • " + hours + " horas • " + minutes + " min • " + seconds + " seg";
+}, 1000);
+</script>
+
+</body>
+</html>
