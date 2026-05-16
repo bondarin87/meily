@@ -40,14 +40,13 @@ body {
     text-align: center;
 }
 
-/* animación por líneas */
+/* Animación por líneas */
 .fade-item {
     opacity: 0;
     transform: translateY(20px);
     animation: fadeUp 0.8s ease forwards;
 }
 
-/* delays progresivos */
 .fade-item:nth-child(1){ animation-delay: 0.2s;}
 .fade-item:nth-child(2){ animation-delay: 0.4s;}
 .fade-item:nth-child(3){ animation-delay: 0.6s;}
@@ -81,9 +80,21 @@ body {
     margin: 10px 0;
 }
 
+/* TEXTO MEJORADO */
 .text {
     margin: 20px 0;
-    font-size: clamp(14px, 2.5vw, 18px);
+}
+
+.main-text {
+    font-size: clamp(18px, 3vw, 24px);
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.sub-text {
+    margin-top: 10px;
+    font-size: clamp(14px, 2.2vw, 16px);
+    opacity: 0.8;
 }
 
 .date {
@@ -101,7 +112,7 @@ body {
     font-size: 16px;
 }
 
-/* countdown */
+/* Countdown */
 #countdown-label {
     margin-top: 20px;
     font-size: 16px;
@@ -136,6 +147,11 @@ button:hover {
         padding: 25px 15px;
     }
 }
+.location a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(255,255,255,0.5);
+}
 </style>
 </head>
 
@@ -149,19 +165,26 @@ button:hover {
         <div class="name fade-item">Meily</div>
 
         <div class="text fade-item">
-            Te invito a celebrar conmigo este día tan especial<br>
-            <b>¡No faltes!</b>
+            <div class="main-text">
+                Acompáñame a celebrar un día<br>que recordaré siempre
+            </div>
+            <div class="sub-text">
+                Tu presencia hará este día aún más especial
+            </div>
         </div>
 
         <div class="date fade-item">23 DE MAYO</div>
         <div class="time fade-item">10:30 am</div>
 
         <div class="location fade-item">
-           &#128205 Jr. Jorge Chávez #510 - Juliaca
+              📍 
+    <a href="https://www.google.com/maps/search/?api=1&query=Jr. Jorge Chávez 510 - Juliaca" target="_blank">
+        Jr. Jorge Chávez #510 - Juliaca
+    </a>
         </div>
 
         <div id="countdown-label" class="fade-item">
-            El gran día está cada vez más cerca
+            La espera casi termina…
         </div>
 
         <div id="countdown" class="fade-item"></div>
@@ -178,7 +201,7 @@ button:hover {
 </audio>
 
 <script>
-/* MÚSICA TOGGLE */
+/* MÚSICA */
 let isPlaying = false;
 const music = document.getElementById("music");
 const btn = document.getElementById("musicBtn");
